@@ -254,9 +254,15 @@
                     maintainAspectRatio: false,
                     scales: {
                         x: {
+                            type: 'linear',
                             title: {
                                 display: true,
                                 text: 'Gestational Age (weeks)'
+                            },
+                            min: 14,
+                            max: 42,
+                            ticks: {
+                                stepSize: 1
                             }
                         },
                         y: {
@@ -291,7 +297,6 @@
                 }
             });
         }
-
         function getColor(index) {
             const colors = ['red', 'blue', 'green', 'orange', 'purple'];
             return colors[index % colors.length];
@@ -369,7 +374,6 @@
 
             updateChart();
         });
-        
         function updateChart() {
             if (growthChart) {
                 const measurements = [];
@@ -378,9 +382,14 @@
                     const gestationalAgeDays = parseInt(row.querySelector('.gestationalAgeDays').value) || 0;
                     const efw = parseFloat(row.querySelector('.efw').value) || 0;
 
+                    console.log('Input values:', { gestationalAgeWeeks, gestationalAgeDays, efw });
+
                     if (gestationalAgeWeeks > 0 && efw > 0) {
                         const totalGestationalWeeks = gestationalAgeWeeks + gestationalAgeDays / 7;
                         const efwPercentile = calculateEFWPercentile(totalGestationalWeeks, efw);
+
+                        console.log('Calculated values:', { totalGestationalWeeks, efwPercentile });
+
                         measurements.push({
                             gestationalAge: totalGestationalWeeks,
                             efw: efw,
@@ -389,9 +398,11 @@
                     }
                 });
 
+                console.log('Measurements array:', measurements);
+
                 growthChart.data.datasets = growthChart.data.datasets.filter(dataset => dataset.label !== 'Measurements');
 
-                growthChart.data.datasets.push({
+                const newDataset = {
                     label: 'Measurements',
                     data: measurements.map(m => ({ x: m.gestationalAge, y: m.efw })),
                     pointStyle: 'circle',
@@ -414,7 +425,11 @@
                             size: 10
                         }
                     }
-                });
+                };
+
+                console.log('New dataset:', newDataset);
+
+                growthChart.data.datasets.push(newDataset);
 
                 growthChart.update();
             }
