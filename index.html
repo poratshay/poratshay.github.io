@@ -189,7 +189,6 @@
     <h1>Fetal Growth Calculator</h1>
     <form id="fetalGrowthForm">
         <div id="inputContainer" class="input-container"></div>
-        <button type="submit">Calculate</button>
     </form>
     <div id="chartContainer">
         <canvas id="growthChart"></canvas>
@@ -294,9 +293,12 @@
                             display: false
                         }
                     }
-                }
+                },
+                plugins: [ChartDataLabels]
             });
         }
+
+
         function getColor(index) {
             const colors = ['red', 'blue', 'green', 'orange', 'purple'];
             return colors[index % colors.length];
@@ -344,11 +346,96 @@
             if (recordCount === 1) {
                 document.getElementById('addRecord').addEventListener('click', addRecord);
             }
+
+            // Add event listeners for input changes
+            newRow.querySelectorAll('input').forEach(input => {
+                input.addEventListener('input', updateResults);
+            });
+        }
+        // document.getElementById('fetalGrowthForm').addEventListener('submit', function (e) {
+        //     e.preventDefault();
+
+        //     document.querySelectorAll('.input-row').forEach((row, index) => {
+        //         const gestationalAgeWeeks = parseInt(row.querySelector('.gestationalAgeWeeks').value) || 0;
+        //         const gestationalAgeDays = parseInt(row.querySelector('.gestationalAgeDays').value) || 0;
+        //         const efw = parseFloat(row.querySelector('.efw').value) || 0;
+        //         const ac = parseFloat(row.querySelector('.ac').value) || 0;
+
+        //         const totalGestationalWeeks = gestationalAgeWeeks + gestationalAgeDays / 7;
+
+        //         if (efw > 0) {
+        //             const efwPercentile = calculateEFWPercentile(totalGestationalWeeks, efw);
+        //             row.querySelector('.efw-result').value = `${efwPercentile.toFixed(1)}%`;
+        //         } else {
+        //             row.querySelector('.efw-result').value = '';
+        //         }
+
+        //         if (ac > 0) {
+        //             const acPercentileResult = calculateACPercentile(gestationalAgeWeeks, ac);
+        //             row.querySelector('.ac-result').value = acPercentileResult;
+        //         } else {
+        //             row.querySelector('.ac-result').value = '';
+        //         }
+        //     });
+
+        //     updateChart();
+        // });
+
+        function updateChart() {
+            if (growthChart) {
+                const measurements = [];
+                document.querySelectorAll('.input-row').forEach(row => {
+                    const gestationalAgeWeeks = parseInt(row.querySelector('.gestationalAgeWeeks').value) || 0;
+                    const gestationalAgeDays = parseInt(row.querySelector('.gestationalAgeDays').value) || 0;
+                    const efw = parseFloat(row.querySelector('.efw').value) || 0;
+
+                    if (gestationalAgeWeeks > 0 && efw > 0) {
+                        const totalGestationalWeeks = gestationalAgeWeeks + gestationalAgeDays / 7;
+                        const efwPercentile = calculateEFWPercentile(totalGestationalWeeks, efw);
+                        measurements.push({
+                            gestationalAge: totalGestationalWeeks,
+                            efw: efw,
+                            percentile: efwPercentile
+                        });
+                    }
+                });
+
+                growthChart.data.datasets = growthChart.data.datasets.filter(dataset => dataset.label !== 'Measurements');
+
+                growthChart.data.datasets.push({
+                    label: 'Measurements',
+                    data: measurements.map(m => ({ x: m.gestationalAge, y: m.efw })),
+                    pointStyle: 'triangle',
+                    pointRadius: 6,
+                    pointBackgroundColor: 'green',
+                    pointBorderColor: 'green',
+                    pointBorderWidth: 1,
+                    pointHoverRadius: 8,
+                    showLine: true,
+                    borderColor: 'black',  // Changed to black
+                    borderWidth: 2,
+                    fill: false,
+                    order: -1,
+                    datalabels: {
+                        display: true,
+                        align: 'top',
+                        offset: 10,
+                        color: 'black',
+                        formatter: function (value, context) {
+                            return measurements[context.dataIndex].percentile.toFixed(1) + '%';
+                        },
+                        font: {
+                            size: 10,
+                            weight: 'bold'
+                        }
+                    }
+                });
+
+                growthChart.update();
+            }
         }
 
-        document.getElementById('fetalGrowthForm').addEventListener('submit', function (e) {
-            e.preventDefault();
-
+        function updateResults() {
             document.querySelectorAll('.input-row').forEach((row, index) => {
                 const gestationalAgeWeeks = parseInt(row.querySelector('.gestationalAgeWeeks').value) || 0;
                 const gestationalAgeDays = parseInt(row.querySelector('.gestationalAgeDays').value) || 0;
@@ -373,66 +460,6 @@
             });
 
             updateChart();
-        });
-        function updateChart() {
-            if (growthChart) {
-                const measurements = [];
-                document.querySelectorAll('.input-row').forEach(row => {
-                    const gestationalAgeWeeks = parseInt(row.querySelector('.gestationalAgeWeeks').value) || 0;
-                    const gestationalAgeDays = parseInt(row.querySelector('.gestationalAgeDays').value) || 0;
-                    const efw = parseFloat(row.querySelector('.efw').value) || 0;
-
-                    console.log('Input values:', { gestationalAgeWeeks, gestationalAgeDays, efw });
-
-                    if (gestationalAgeWeeks > 0 && efw > 0) {
-                        const totalGestationalWeeks = gestationalAgeWeeks + gestationalAgeDays / 7;
-                        const efwPercentile = calculateEFWPercentile(totalGestationalWeeks, efw);
-
-                        console.log('Calculated values:', { totalGestationalWeeks, efwPercentile });
-
-                        measurements.push({
-                            gestationalAge: totalGestationalWeeks,
-                            efw: efw,
-                            percentile: efwPercentile
-                        });
-                    }
-                });
-
-                console.log('Measurements array:', measurements);
-
-                growthChart.data.datasets = growthChart.data.datasets.filter(dataset => dataset.label !== 'Measurements');
-
-                const newDataset = {
-                    label: 'Measurements',
-                    data: measurements.map(m => ({ x: m.gestationalAge, y: m.efw })),
-                    pointStyle: 'circle',
-                    pointRadius: 6,
-                    pointBackgroundColor: 'red',
-                    pointBorderColor: 'black',
-                    pointBorderWidth: 2,
-                    pointHoverRadius: 8,
-                    showLine: true,
-                    borderColor: 'black',
-                    borderWidth: 2,
-                    datalabels: {
-                        display: true,
-                        align: 'top',
-                        offset: 10,
-                        formatter: function (value, context) {
-                            return measurements[context.dataIndex].percentile.toFixed(1) + '%';
-                        },
-                        font: {
-                            size: 10
-                        }
-                    }
-                };
-
-                console.log('New dataset:', newDataset);
-
-                growthChart.data.datasets.push(newDataset);
-
-                growthChart.update();
-            }
         }
 
         function calculateEFWPercentile(gestationalWeeks, efw) {
