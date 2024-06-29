@@ -218,10 +218,10 @@ function enforceDaysLimit(event) {
     const input = event.target;
 
     if (input.value > 6) {
-        input.value = 6;
+        input.value = null;
     }
     if (input.value < 0) {
-        input.value = 0;
+        input.value = null;
     }
 }
 
