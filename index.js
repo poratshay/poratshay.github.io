@@ -145,7 +145,7 @@ function addRecord() {
         <label>Record ${recordCount}</label>
     </div>
     <div class="input-group">
-        <label class="mobile-label">Gestational Age</label>
+        <label>Gestational Age</label>
         <div class="gestational-age-group">
             <div class="gestational-age-input">
                 <input type="number" class="gestationalAgeWeeks" min="14" max="42" placeholder="Weeks">
@@ -157,21 +157,21 @@ function addRecord() {
         </div>
     </div>
     <div class="input-group">
-        <label class="mobile-label">EFW (g)</label>
+        <label>EFW (g)<sup>1</sup></label>
         <div class="input-result-group">
             <input type="number" class="efw">
             <input type="text" class="result efw-result" readonly placeholder="Percentile">
         </div>
     </div>
     <div class="input-group">
-        <label class="mobile-label">AC (mm)</label>
+        <label>AC (mm)<sup>2</sup></label>
         <div class="input-result-group">
             <input type="number" class="ac">
             <input type="text" class="result ac-result" readonly placeholder="Percentile">
         </div>
     </div>
     <div class="input-group">
-        <label class="mobile-label">HC (mm)</label>
+        <label>HC (mm)<sup>3</sup></label>
         <div class="input-result-group">
             <input type="number" class="hc">
             <input type="text" class="result hc-result" readonly placeholder="Percentile">
@@ -196,6 +196,34 @@ function addRecord() {
     newRow.querySelectorAll('input').forEach(input => {
         input.addEventListener('input', updateResults);
     });
+
+    // Add references section if it doesn't exist
+    if (!document.getElementById('references')) {
+        addReferences();
+    }
+}
+
+function addFooter() {
+    const footer = document.createElement('footer');
+    footer.id = 'footer';
+    footer.innerHTML = `
+        <div id="attribution">This site was created by Eitan Porat</div>
+    `;
+    document.body.appendChild(footer);
+}
+
+function addReferences() {
+    const referencesSection = document.createElement('div');
+    referencesSection.id = 'references';
+    referencesSection.innerHTML = `
+        <h3>References</h3>
+        <ol>
+            <li>Hadlock FP, Harrist RB, Martinez-Poyer J. In utero analysis of fetal growth: a sonographic weight standard. Radiology. 1991 Oct;181(1):129-33. doi: 10.1148/radiology.181.1.1887021. PMID: 1887021.</li>
+            <li>Adapted from Hadlock FP, Deter RL, Harrist RB, et al: Estimating fetal age: computer-assisted analysis of multiple fetal growth parameters. Radiology 152:497, 1984.</li>
+            <li>Chervenak FA, Jeanty P, Cantraine F, Chitkara U, Venus I, Berkowitz RL, Hobbins JC. The diagnosis of fetal microcephaly. Am J Obstet Gynecol. 1984 Jul 1;149(5):512-7. doi: 10.1016/0002-9378(84)90027-9. PMID: 6742021.</li>
+        </ol>
+    `;
+    document.body.appendChild(referencesSection);
 }
 // document.getElementById('fetalGrowthForm').addEventListener('submit', function (e) {
 //     e.preventDefault();
@@ -398,4 +426,7 @@ function calculateACPercentile(gestationalWeeks, ac) {
     }
 }
 
-addRecord();
+document.addEventListener('DOMContentLoaded', function() {
+    addRecord();
+    addFooter();
+});

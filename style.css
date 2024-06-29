@@ -219,6 +219,51 @@ canvas {
     display: none;
 }
 
+cssCopybody {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+#inputContainer {
+    flex: 1;
+}
+
+#references {
+    background-color: #f5f5f5;
+    padding: 20px;
+    margin-top: 20px;
+    border-top: 1px solid #ddd;
+}
+
+#references h3 {
+    margin-top: 0;
+}
+
+#references ol {
+    padding-left: 20px;
+}
+
+#references li {
+    margin-bottom: 10px;
+    font-size: 0.9em;
+}
+
+#footer {
+    margin-top: 40px;
+    padding: 20px;
+    text-align: center;
+    border-top: 1px solid #ddd;
+}
+
+#attribution {
+    font-style: italic;
+    color: #666;
+}
+
+
 /* Show mobile labels and adjust layout for mobile devices */
 @media (max-width: 768px) {
     .mobile-label {
@@ -268,4 +313,9 @@ canvas {
         margin-top: 10px;
         transform: translate(0px, 0px);
     }
+
+    #references {
+        font-size: 0.8em;
+    }
+
 }
