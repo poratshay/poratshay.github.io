@@ -1,0 +1,234 @@
+body {
+    font-family: 'Roboto', Arial, sans-serif;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f5f5f5;
+}
+
+h1 {
+    color: #1976d2;
+    margin-bottom: 20px;
+}
+
+.input-container {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.input-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 15px;
+    margin-bottom: 15px;
+    position: relative;
+    padding-right: 50px;
+}
+
+.input-group {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.gestational-age-group {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    flex-grow: 1;
+}
+
+.gestational-age-input {
+    flex-grow: 1;
+    max-width: 140px; /* Slightly increased from original 100px */
+}
+
+.gestational-age-input input {
+    width: 100%;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 0.9em;
+    color: #555;
+}
+
+input {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    font-size: 1em;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    transition: border-color 0.3s;
+}
+
+input:focus {
+    outline: none;
+    border-color: #1976d2;
+}
+
+.plus-sign {
+    margin: 0 5px;
+    font-size: 16px;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 1em;
+    color: white;
+    background-color: #1976d2;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #1565c0;
+}
+
+#addRecord {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    padding: 0;
+}
+
+.result {
+    font-size: 0.9em;
+    color: #1976d2;
+    white-space: nowrap;
+}
+
+#chartContainer {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-top: 20px;
+    height: 500px;
+}
+
+canvas {
+    max-width: 100%;
+}
+
+
+
+.input-result-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+
+.input-result-group input[type="number"] {
+    flex: 2;
+}
+
+.input-result-group input[type="text"] {
+    flex: 1;
+    background-color: #f0f0f0;
+    color: #1976d2;
+    border: 1px solid #ddd;
+    padding: 8px;
+    font-size: 0.9em;
+    border-radius: 4px;
+    text-align: center;
+    min-width: 70px; /* Slightly increased from original */
+}
+
+.input-result-group input[type="text"]::placeholder {
+    color: #999;
+}
+
+/* New styles to make inputs moderately wider */
+.input-group input[type="number"],
+.input-group input[type="text"] {
+    min-width: 100px; /* Moderately increased width */
+}
+
+.input-result-group {
+    flex-wrap: nowrap; /* Prevent wrapping */
+}
+
+.input-result-group input[type="number"],
+.input-result-group input[type="text"] {
+    flex: 1;
+    min-width: 90px; /* Moderately increased width */
+}
+
+.input-container {
+    position: relative;
+}
+
+.add-button-container {
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: -15px; /* Adjust this value to fine-tune vertical positioning */
+    margin-right: -50px; /* Adjust this value to fine-tune horizontal positioning */
+}
+
+#addRecord {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #1976d2;
+    color: white;
+    font-size: 20px;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translate(-50px, -35px);
+    padding: 0;
+}
+
+#addRecord:hover {
+    background-color: #1565c0;
+}
+
+.input-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+@media (max-width: 768px) {
+    .input-row {
+        flex-direction: column;
+        align-items: stretch;
+        padding-right: 0;
+    }
+
+    .input-group {
+        margin-bottom: 10px;
+    }
+
+    #addRecord {
+        position: static;
+        margin-top: 10px;
+        transform: translate(-200px, 0px);
+    }
+
+}
