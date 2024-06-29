@@ -145,7 +145,7 @@ function addRecord() {
         <label>Record ${recordCount}</label>
     </div>
     <div class="input-group">
-        ${recordCount === 1 ? '<label>Gestational Age</label>' : ''}
+        <label class="mobile-label">Gestational Age</label>
         <div class="gestational-age-group">
             <div class="gestational-age-input">
                 <input type="number" class="gestationalAgeWeeks" min="14" max="42" placeholder="Weeks">
@@ -157,21 +157,21 @@ function addRecord() {
         </div>
     </div>
     <div class="input-group">
-        ${recordCount === 1 ? '<label>EFW (g)</label>' : ''}
+        <label class="mobile-label">EFW (g)</label>
         <div class="input-result-group">
             <input type="number" class="efw">
             <input type="text" class="result efw-result" readonly placeholder="Percentile">
         </div>
     </div>
     <div class="input-group">
-        ${recordCount === 1 ? '<label>AC (mm)</label>' : ''}
+        <label class="mobile-label">AC (mm)</label>
         <div class="input-result-group">
             <input type="number" class="ac">
             <input type="text" class="result ac-result" readonly placeholder="Percentile">
         </div>
     </div>
     <div class="input-group">
-        ${recordCount === 1 ? '<label>HC (mm)</label>' : ''}
+        <label class="mobile-label">HC (mm)</label>
         <div class="input-result-group">
             <input type="number" class="hc">
             <input type="text" class="result hc-result" readonly placeholder="Percentile">

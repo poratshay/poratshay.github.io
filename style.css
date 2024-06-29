@@ -214,7 +214,20 @@ canvas {
     margin-bottom: 15px;
 }
 
+
+.mobile-label {
+    display: none;
+}
+
+/* Show mobile labels and adjust layout for mobile devices */
 @media (max-width: 768px) {
+    .mobile-label {
+        display: block;
+        margin-bottom: 5px;
+        font-size: 0.9em;
+        color: #555;
+    }
+
     .input-row {
         flex-direction: column;
         align-items: stretch;
@@ -222,17 +235,37 @@ canvas {
     }
 
     .input-group {
-        margin-bottom: 10px;
+        margin-bottom: 15px;
+    }
+
+    .gestational-age-group {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .gestational-age-input {
+        width: 45%;
+    }
+
+    .input-result-group {
+        flex-direction: column;
+    }
+
+    .input-result-group input[type="number"],
+    .input-result-group input[type="text"] {
+        width: 100%;
+        margin-bottom: 5px;
+    }
+
+    #addRecordContainer {
+        margin-top: 10px;
+        margin-right: 0;
+        justify-content: center;
     }
 
     #addRecord {
         position: static;
         margin-top: 10px;
-        transform: translate(-200px, 0px);
+        transform: translate(0px, 0px);
     }
-
-
-
-
-    
 }
