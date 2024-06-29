@@ -157,21 +157,21 @@ function addRecord() {
         </div>
     </div>
     <div class="input-group">
-        <label>EFW (g)<sup>1</sup></label>
+        <label>EFW (g)<sup>🟩</sup></label>
         <div class="input-result-group">
             <input type="number" class="efw">
             <input type="text" class="result efw-result" readonly placeholder="Percentile">
         </div>
     </div>
     <div class="input-group">
-        <label>AC (mm)<sup>2</sup></label>
+        <label>AC (mm)<sup>🔵</sup></label>
         <div class="input-result-group">
             <input type="number" class="ac">
             <input type="text" class="result ac-result" readonly placeholder="Percentile">
         </div>
     </div>
     <div class="input-group">
-        <label>HC (mm)<sup>3</sup></label>
+        <label>HC (mm)<sup>⭐</sup></label>
         <div class="input-result-group">
             <input type="number" class="hc">
             <input type="text" class="result hc-result" readonly placeholder="Percentile">
@@ -212,15 +212,29 @@ function addFooter() {
     document.body.appendChild(footer);
 }
 
+function addDisclaimer() {
+    const disclaimer = document.createElement('div');
+    disclaimer.id = 'disclaimer';
+    disclaimer.className = 'disclaimer';
+    disclaimer.innerHTML = `
+        <h2>Medical Disclaimer</h2>
+        <p>Information in this webpage is not intended to replace professional health care.
+        
+        </p>
+    `;
+    document.body.appendChild(disclaimer);
+}
+
+
 function addReferences() {
     const referencesSection = document.createElement('div');
     referencesSection.id = 'references';
     referencesSection.innerHTML = `
         <h3>References</h3>
         <ol>
-            <li>Hadlock FP, Harrist RB, Martinez-Poyer J. In utero analysis of fetal growth: a sonographic weight standard. Radiology. 1991 Oct;181(1):129-33. doi: 10.1148/radiology.181.1.1887021. PMID: 1887021.</li>
-            <li>Adapted from Hadlock FP, Deter RL, Harrist RB, et al: Estimating fetal age: computer-assisted analysis of multiple fetal growth parameters. Radiology 152:497, 1984.</li>
-            <li>Chervenak FA, Jeanty P, Cantraine F, Chitkara U, Venus I, Berkowitz RL, Hobbins JC. The diagnosis of fetal microcephaly. Am J Obstet Gynecol. 1984 Jul 1;149(5):512-7. doi: 10.1016/0002-9378(84)90027-9. PMID: 6742021.</li>
+            <p>(🟩) Hadlock FP, Harrist RB, Martinez-Poyer J. In utero analysis of fetal growth: a sonographic weight standard. Radiology. 1991 Oct;181(1):129-33. doi: 10.1148/radiology.181.1.1887021. PMID: 1887021.</p>
+            <p>(🔵) Adapted from Hadlock FP, Deter RL, Harrist RB, et al: Estimating fetal age: computer-assisted analysis of multiple fetal growth parameters. Radiology 152:497, 1984.</p>
+            <p>(⭐) Chervenak FA, Jeanty P, Cantraine F, Chitkara U, Venus I, Berkowitz RL, Hobbins JC. The diagnosis of fetal microcephaly. Am J Obstet Gynecol. 1984 Jul 1;149(5):512-7. doi: 10.1016/0002-9378(84)90027-9. PMID: 6742021.</p>
         </ol>
     `;
     document.body.appendChild(referencesSection);
@@ -428,5 +442,6 @@ function calculateACPercentile(gestationalWeeks, ac) {
 
 document.addEventListener('DOMContentLoaded', function() {
     addRecord();
+    addDisclaimer();
     addFooter();
 });

@@ -22,7 +22,7 @@ h1 {
 .input-row {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: flex-end;
     gap: 15px;
     margin-bottom: 15px;
     position: relative;
@@ -209,7 +209,7 @@ canvas {
 .input-row {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: flex-end;
     gap: 15px;
     margin-bottom: 15px;
 }
@@ -252,7 +252,6 @@ cssCopybody {
 }
 
 #footer {
-    margin-top: 40px;
     padding: 20px;
     text-align: center;
     border-top: 1px solid #ddd;
@@ -318,4 +317,23 @@ cssCopybody {
         font-size: 0.8em;
     }
 
+}
+
+.disclaimer {
+    margin-top: 20px;
+    padding: 15px;
+    border-top: 1px solid #ddd;
+}
+
+.disclaimer h2 {
+    color: #333;
+    font-size: 1.2em;
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.disclaimer p {
+    font-size: 0.9em;
+    color: #666;
+    line-height: 1.5;
 }
