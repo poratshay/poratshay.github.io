@@ -201,7 +201,38 @@ function addRecord() {
     if (!document.getElementById('references')) {
         addReferences();
     }
+
+    newRow.querySelectorAll('input').forEach(input => {
+        input.addEventListener('input', updateResults);
+        if (input.classList.contains('gestationalAgeDays')) {
+            input.addEventListener('input', enforceDaysLimit);
+        }
+
+        if (input.classList.contains('gestationalAgeWeeks')) {
+            input.addEventListener('input', enforceWeeksLimit);
+        }
+    });
 }
+
+function enforceDaysLimit(event) {
+    const input = event.target;
+
+    if (input.value > 6) {
+        input.value = 6;
+    }
+    if (input.value < 0) {
+        input.value = 0;
+    }
+}
+
+function enforceWeeksLimit(event) {
+    const input = event.target;
+
+    if (input.value > 42) {
+        input.value = null;
+    }
+}
+
 
 function addFooter() {
     const footer = document.createElement('footer');
@@ -273,8 +304,8 @@ function updateChart() {
         const measurements = [];
         document.querySelectorAll('.input-row').forEach(row => {
             const gestationalAgeWeeks = parseInt(row.querySelector('.gestationalAgeWeeks').value) || 0;
-            const gestationalAgeDays = parseInt(row.querySelector('.gestationalAgeDays').value) || 0;
-            const efw = parseFloat(row.querySelector('.efw').value) || 0;
+            const gestationalAgeDays = Math.min(parseInt(row.querySelector('.gestationalAgeDays').value) || 0, 6);
+                const efw = parseFloat(row.querySelector('.efw').value) || 0;
 
             if (gestationalAgeWeeks > 0 && efw > 0) {
                 const totalGestationalWeeks = gestationalAgeWeeks + gestationalAgeDays / 7;
