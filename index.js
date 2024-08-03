@@ -372,7 +372,7 @@ function updateResults() {
 
         if (ac > 0) {
             const acPercentileResult = calculateACPercentile(gestationalAgeWeeks, ac);
-            row.querySelector('.ac-result').value = acPercentileResult;
+            row.querySelector('.ac-result').value = `${acPercentileResult.toFixed(1)}%`;
         } else {
             row.querySelector('.ac-result').value = '';
         }
@@ -452,23 +452,24 @@ function erf(x) {
 }
 
 function calculateACPercentile(gestationalWeeks, ac) {
-    if (!acData[gestationalWeeks]) {
-        return "N/A";
-    }
+    return normDist(ac, 10*(-0.00998*gestationalWeeks**2 + 1.61*gestationalWeeks - 13.3), 13.4, true) * 100;
+    // if (!acData[gestationalWeeks]) {
+    //     return "N/A";
+    // }
 
-    const { p3, p10 } = acData[gestationalWeeks];
+    // const { p3, p10 } = acData[gestationalWeeks];
 
-    if (ac < p3) {
-        return "<3";
-    } else if (ac === p3) {
-        return "3";
-    } else if (ac > p3 && ac < p10) {
-        return "3-10";
-    } else if (ac === p10) {
-        return "10";
-    } else {
-        return ">10";
-    }
+    // if (ac < p3) {
+    //     return "<3";
+    // } else if (ac === p3) {
+    //     return "3";
+    // } else if (ac > p3 && ac < p10) {
+    //     return "3-10";
+    // } else if (ac === p10) {
+    //     return "10";
+    // } else {
+    //     return ">10";
+    // }
 }
 
 document.addEventListener('DOMContentLoaded', function() {
