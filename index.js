@@ -264,7 +264,7 @@ function addReferences() {
         <h3>References</h3>
         <ol>
             <p>(🟩) Hadlock FP, Harrist RB, Martinez-Poyer J. In utero analysis of fetal growth: a sonographic weight standard. Radiology. 1991 Oct;181(1):129-33. doi: 10.1148/radiology.181.1.1887021. PMID: 1887021.</p>
-            <p>(🔵) Adapted from Hadlock FP, Deter RL, Harrist RB, et al: Estimating fetal age: computer-assisted analysis of multiple fetal growth parameters. Radiology 152:497, 1984.</p>
+            <p>(🔵) Hadlock FP, Deter RL, Harrist RB, et al: Estimating fetal age: computer-assisted analysis of multiple fetal growth parameters. Radiology 152:497, 1984.</p>
             <p>(⭐) Chervenak FA, Jeanty P, Cantraine F, Chitkara U, Venus I, Berkowitz RL, Hobbins JC. The diagnosis of fetal microcephaly. Am J Obstet Gynecol. 1984 Jul 1;149(5):512-7. doi: 10.1016/0002-9378(84)90027-9. PMID: 6742021.</p>
         </ol>
     `;
@@ -371,13 +371,13 @@ function updateResults() {
         }
 
         if (ac > 0) {
-            const acPercentileResult = calculateACPercentile(gestationalAgeWeeks, ac);
+            const acPercentileResult = calculateACPercentile(totalGestationalWeeks, ac);
             row.querySelector('.ac-result').value = `${acPercentileResult.toFixed(1)}%`;
         } else {
             row.querySelector('.ac-result').value = '';
         }
         if (hc > 0) {
-            const hcPercentileResult = calculateHCPercentile(gestationalAgeWeeks, hc);
+            const hcPercentileResult = calculateHCPercentile(totalGestationalWeeks, hc);
             row.querySelector('.hc-result').value = hcPercentileResult;
         } else {
             row.querySelector('.hc-result').value = '';
@@ -452,6 +452,7 @@ function erf(x) {
 }
 
 function calculateACPercentile(gestationalWeeks, ac) {
+    console.log(gestationalWeeks);
     return normDist(ac, 10*(-0.00998*gestationalWeeks**2 + 1.61*gestationalWeeks - 13.3), 13.4, true) * 100;
     // if (!acData[gestationalWeeks]) {
     //     return "N/A";
