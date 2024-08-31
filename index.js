@@ -1,5 +1,7 @@
 let acData = {};
 let hadlockData = {};
+let hcData = {};
+
 let growthChart;
 let recordCount = 0;
 
@@ -35,25 +37,24 @@ fetch('hadlock_percentiles.csv')
     })
     .catch(error => console.error('Error loading Hadlock data:', error));
 
-    let hcData = {};
 
-    fetch('HC_Chervenak.csv')
-        .then(response => response.text())
-        .then(data => {
-            const lines = data.split('\n');
-            const headers = lines[0].split(',').slice(1);
-            lines.slice(1).forEach(line => {
-                const values = line.split(',');
-                const week = parseInt(values[0]);
-                if (!isNaN(week)) {
-                    hcData[week] = headers.reduce((obj, header, index) => {
-                        obj[parseInt(header)] = parseFloat(values[index + 1]);
-                        return obj;
-                    }, {});
-                }
-            });
-        })
-        .catch(error => console.error('Error loading HC data:', error));
+fetch('HC_Chervenak.csv')
+    .then(response => response.text())
+    .then(data => {
+        const lines = data.split('\n');
+        const headers = lines[0].split(',').slice(1);
+        lines.slice(1).forEach(line => {
+            const values = line.split(',');
+            const week = parseInt(values[0]);
+            if (!isNaN(week)) {
+                hcData[week] = headers.reduce((obj, header, index) => {
+                    obj[parseInt(header)] = parseFloat(values[index + 1]);
+                    return obj;
+                }, {});
+            }
+        });
+    })
+    .catch(error => console.error('Error loading HC data:', error));
 
 function createChart() {
     const ctx = document.getElementById('growthChart').getContext('2d');
