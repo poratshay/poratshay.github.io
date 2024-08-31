@@ -264,7 +264,7 @@ cssCopybody {
 
 
 /* Show mobile labels and adjust layout for mobile devices */
-@media (max-width: 768px) {
+@media (max-width: 600px) {
     .mobile-label {
         display: block;
         margin-bottom: 5px;
